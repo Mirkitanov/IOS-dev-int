@@ -6,6 +6,7 @@
 //  Copyright © 2021 Artem Novichkov. All rights reserved.
 //
 
+import StorageService
 import UIKit
 
 class PhotosCollectionViewCell: UICollectionViewCell {

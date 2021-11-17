@@ -1,4 +1,5 @@
 import UIKit
+import StorageService
 
 class PostsViewController: UIViewController {
     
@@ -9,6 +10,12 @@ class PostsViewController: UIViewController {
         
         setupTableView()
         setupViews()
+        
+        #if DEBUG
+        view.backgroundColor = .yellow
+        #else
+        view.backgroundColor = .red
+        #endif
     }
 
     private func setupTableView() {

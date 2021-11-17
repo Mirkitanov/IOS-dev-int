@@ -17,3 +17,7 @@ class PostViewController: UIViewController {
         title = post?.title
     }
 }
+
+struct PostOld {
+    var title: String
+}

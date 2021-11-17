@@ -86,9 +86,11 @@ class ProfileHeaderView: UIView {
     
     private func setupViews() {
         
-         backgroundColor = .systemGray4
-         
-        //avatarImageView.frame = CGRect(x: 16, y: 16, width: 100, height: 100)
+        #if DEBUG
+        backgroundColor = .yellow
+        #else
+        backgroundColor = .red
+        #endif
         
          addSubview(avatarImageView)
          addSubview(fullNameLabel)
