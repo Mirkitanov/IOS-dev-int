@@ -8,7 +8,7 @@
 
 import UIKit
 
-import UIKit
+import StorageService
 
 final class PhotosViewController: UIViewController {
     

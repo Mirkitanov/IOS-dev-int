@@ -2,18 +2,19 @@
 
 import UIKit
 
-struct Photo {
-    var image: UIImage
+
+public struct Photo {
+    public var image: UIImage
 }
 
 
-struct PhotoSection {
-    let photos: [Photo]
+public struct PhotoSection {
+    public let photos: [Photo]
 }
 
-struct PhotoStorage {
+public struct PhotoStorage {
     
-    static let photoModel = [
+    public static let photoModel = [
         PhotoSection(
             photos: [
                 Photo(image: #imageLiteral(resourceName: "bruce_lee_2")),
@@ -44,27 +45,19 @@ struct PhotoStorage {
     ]
 }
 
-enum PostSectionType {
+public enum PostSectionType {
     case photos
     case posts
 }
 
-struct Post {
-    let image: UIImage
-    let name: String
-    let likes: String
-    let views: String
-    var description: String? = nil
+public struct PostSection{
+    public let type: PostSectionType
+    public let posts: [Post]?
+    public var footer: String? = nil
 }
 
-struct PostSection{
-    let type: PostSectionType
-    let posts: [Post]?
-    var footer: String? = nil
-}
-
-struct Storage {
-    static let tableModel = [
+public struct Storage {
+    public static let tableModel = [
         PostSection(
             type: .photos,
             posts: nil

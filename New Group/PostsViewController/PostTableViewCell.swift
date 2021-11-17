@@ -1,7 +1,9 @@
 
 import UIKit
+import StorageService
 
 class PostTableViewCell: UITableViewCell {
+  
     
     var postInScreen: Post? {
         didSet {
