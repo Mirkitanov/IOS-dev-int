@@ -1,3 +1,18 @@
+/*
+ Задание №1 по теме "Run Loop, таймеры"
+ "Какие задачи в приложении можно выполнить не сразу,а через некоторое время?"
+ 
+ Я думаю, что не сразу а через некоторое время можно выполнить:
+ - Запускать и менять анимацию на экране, например на LaunchScreen при запуске приложения;
+ - Просмотреть или "залайкать" картинку, только после того, как она будет полностью загружена (например, когда загрузка идет из сети или сервера);
+ - Перемотать видео/аудио, когда оно будет загружено;
+ - По сути, выполнить какие-то любые действия/обработку с Объектом/Данными только после полной загрузки;
+ - Прислать какое-то уведомление/напоминание;
+ - В принципе, когда нужно добиться синхронности выполнения задач, чтобы они выполнялись одна за другой;
+ - Когда мы ждем получения каких-то данных от предыдущей задачи. Например, как мы ждали, пока отработает взломщик пароля, а затем только отработать вход Польователя;
+ - Если мы делаем игру и Игрок стреляет патронами. Когда патроны в обойме закончатся, Игрок сможет стрелять, как только выполнит перезарядку обоймы;
+ - Можно использовать таймер, если нужно ввести "секретный код" в течение определенного времени (например, одной минуты)
+ */
 
 import UIKit
 
@@ -17,10 +32,49 @@ class LogInViewController: UIViewController {
     
     private let wrapperView = UIView()
     
+    var count = 30
+    
+    let timerLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let warningLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        warningLabel.text = "Введите Логин и Пароль"
+        startTimer()
+    }
+    
+    private func startTimer() {
+        let timer = Timer(timeInterval: 1, repeats: true) { (_) in
+            self.timerLabel.text = "Осталось \(self.count) секунд(ы) до очистки полей"
+            self.count -= 1
+            
+            if self.count < 10 {
+                self.timerLabel.textColor = .red
+            } else {
+                self.timerLabel.textColor = .black
+            }
+            
+            if self.count == -1 {
+                self.emailOrPhoneTextField.text = ""
+                self.passwordTextField.text = ""
+                self.count = 30
+                self.timerLabel.textColor = .systemBlue
+            }
+        }
+        
+        RunLoop.main.add(timer, forMode: .common)
     }
     
     private func setupViews(){
@@ -71,6 +125,8 @@ class LogInViewController: UIViewController {
                                 emailOrPhoneTextField,
                                 passwordTextField,
                                 logInButton,
+                                timerLabel,
+                                warningLabel,
                                 longLine
         )
         
@@ -88,6 +144,12 @@ class LogInViewController: UIViewController {
             
             logoImageView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 120),
             logoImageView.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
+            
+            warningLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+            warningLabel.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
+
+            timerLabel.topAnchor.constraint(equalTo: warningLabel.bottomAnchor, constant: 10),
+            timerLabel.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
 
             bigFieldForTwoTextFieldsImageView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
             bigFieldForTwoTextFieldsImageView.heightAnchor.constraint(equalTo: logoImageView.heightAnchor, constant: 0),
