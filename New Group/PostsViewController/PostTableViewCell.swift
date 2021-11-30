@@ -1,5 +1,6 @@
 
 import UIKit
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
     
@@ -47,6 +48,27 @@ class PostTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    func filterImageInNumber (numberOfFilter: Int) {
+        
+        let filterStyle: ColorFilter?
+
+        switch numberOfFilter {
+        case 0: filterStyle = .sepia(intensity: 5)
+        case 1: filterStyle = .noir
+        case 2: filterStyle = .crystallize(radius: 5)
+        case 3: filterStyle = .process
+        case 4: filterStyle = .colorInvert
+        default: filterStyle = nil
+        }
+        
+        let processor = ImageProcessor()
+        guard let imageForProcessor = postInScreen?.image else { return }
+        processor.processImage(
+            sourceImage: imageForProcessor,
+            filter: filterStyle ?? .tonal)
+            {resulImage in postImageView.image = resulImage }
+    }
     
     private let postImageView: UIImageView = {
         let imageView = UIImageView()

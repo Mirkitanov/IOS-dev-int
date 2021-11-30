@@ -1,5 +1,6 @@
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UIView {
     
@@ -86,34 +87,37 @@ class ProfileHeaderView: UIView {
     
     private func setupViews() {
         
-         backgroundColor = .systemGray4
-         
-        //avatarImageView.frame = CGRect(x: 16, y: 16, width: 100, height: 100)
+        backgroundColor = .systemGray4
         
-         addSubview(avatarImageView)
-         addSubview(fullNameLabel)
-         addSubview(statusTextField)
-         addSubview(setStatusButton)
+        addSubview(avatarImageView)
         
-        let constraints = [
-            
-            avatarImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            avatarImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            
-            fullNameLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 27),
-            fullNameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 16),
-            fullNameLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            setStatusButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 16),
-            setStatusButton.leadingAnchor.constraint(equalTo: avatarImageView.leadingAnchor),
-            setStatusButton.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            
-            statusTextField.bottomAnchor.constraint(equalTo: setStatusButton.topAnchor, constant: -34),
-            statusTextField.leadingAnchor.constraint(equalTo: fullNameLabel.leadingAnchor),
-            statusTextField.trailingAnchor.constraint(equalTo: fullNameLabel.trailingAnchor),
-        ]
+        avatarImageView.snp.makeConstraints {
+            $0.top.leading.equalTo(safeAreaLayoutGuide).offset(16)
+        }
         
-        NSLayoutConstraint.activate(constraints)
+        addSubview(fullNameLabel)
+        
+        fullNameLabel.snp.makeConstraints{
+            $0.top.equalTo(safeAreaLayoutGuide).offset(27)
+            $0.leading.equalTo(avatarImageView.snp.trailing).offset(16)
+            $0.trailing.equalTo(safeAreaLayoutGuide).inset(16)
+        }
+        
+        addSubview(setStatusButton)
+        
+        setStatusButton.snp.makeConstraints (){ button in
+            button.top.equalTo(avatarImageView.snp.bottom).offset(16)
+            button.leading.equalTo(avatarImageView)
+            button.trailing.equalTo(safeAreaLayoutGuide.snp.trailing).inset(16)
+        }
+        
+        addSubview(statusTextField)
+        
+        statusTextField.snp.makeConstraints { (textField) in
+            textField.bottom.equalTo(setStatusButton.snp.top).inset(-34)
+            textField.leading.trailing.equalTo(fullNameLabel)
+            
+        }
     }
 }
 

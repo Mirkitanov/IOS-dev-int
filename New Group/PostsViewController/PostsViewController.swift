@@ -61,21 +61,24 @@ extension PostsViewController: UITableViewDataSource {
         }
     }
     
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        switch Storage.tableModel[indexPath.section].type {
+        case .photos:
+            let cell: PhotosTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
+            return cell
+        case .posts:
+            let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
             
-            switch Storage.tableModel[indexPath.section].type {
-            case .photos:
-                let cell: PhotosTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PhotosTableViewCell.self), for: indexPath) as! PhotosTableViewCell
-                return cell
-            case .posts:
-                let cell: PostTableViewCell = tableView.dequeueReusableCell(withIdentifier: String(describing: PostTableViewCell.self), for: indexPath) as! PostTableViewCell
+            let tableSection: PostSection = Storage.tableModel[indexPath.section]
+            let post: Post = tableSection.posts![indexPath.row]
+            cell.postInScreen = post
             
-                let tableSection: PostSection = Storage.tableModel[indexPath.section]
-                let post: Post = tableSection.posts![indexPath.row]
-                            cell.postInScreen = post
+            let someNumber = Int.random(in: 0...4)
+            cell.filterImageInNumber(numberOfFilter: someNumber)
             
-                return cell
-            }
+            return cell
+        }
     }
 }
 
