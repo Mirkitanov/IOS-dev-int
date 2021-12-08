@@ -1,3 +1,19 @@
+/*
+ Задание №1 по теме "Run Loop, таймеры"
+ "Какие задачи в приложении можно выполнить не сразу,а через некоторое время?"
+ 
+ Я думаю, что не сразу а через некоторое время можно выполнить:
+ - Запускать и менять анимацию на экране, например на SplashScreen при запуске приложения и создать визуальный эффект через 1 секунду, продолжительностью 2 секунды;
+ - Просмотреть или "залайкать" картинку, только после того, как она будет полностью загружена (например, когда загрузка идет из сети или сервера);
+ - Перемотать видео/аудио, когда оно будет загружено;
+ - По сути, выполнить какие-то любые действия/обработку с Объектом/Данными только после полной загрузки;
+ - Прислать какое-то уведомление/напоминание. Например, мы пользуемся пробной бесплатной версией приложения, которую можно использовать в течение заданного отведенного времени. По истечении этого времени (например 5 часов)  приложение перестанет работать, или нужно оплатить для продолжения работы с ним;
+ - В принципе, когда нужно добиться синхронности выполнения задач, чтобы они выполнялись одна за другой;
+ - Когда мы ждем получения каких-то данных от предыдущей задачи. Например, как мы ждали, пока отработает взломщик пароля, а затем только отработать вход Польователя;
+ - Если мы делаем игру и Игрок стреляет патронами. Когда патроны в обойме закончатся, Игрок сможет стрелять, как только выполнит перезарядку обоймы. Перезарядка может использовать таймер (например, 3 секунды);
+ - Можно использовать таймер, если нужно ввести "секретный код" в течение определенного времени (например, одной минуты);
+ - Камера может сделать фотоснимок с задержкой по истечении заданного времени (например, 10 секунд).
+ */
 
 import UIKit
 
@@ -17,10 +33,62 @@ class LogInViewController: UIViewController {
     
     private let wrapperView = UIView()
     
+    let numberForCounter = 20
+    var count = 20
+    
+    var currentTimer = Timer()
+    
+    let timerLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let warningLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
+        warningLabel.text = "Введите Логин и Пароль"
+    }
+    
+    private func setupTimer() -> Timer{
+        let timer = Timer(timeInterval: 1, repeats: true) { timerNew in
+                    self.timerLabel.text = "Осталось \(self.count) секунд(ы) до очистки полей"
+                    self.count -= 1
+        
+                    if self.count < 10 {
+                        self.timerLabel.textColor = .red
+                    } else {
+                        self.timerLabel.textColor = .black
+                    }
+        
+                    if self.count == -1 {
+                        self.emailOrPhoneTextField.text = ""
+                        self.passwordTextField.text = ""
+                        self.timerLabel.textColor = .systemBlue
+                        self.count = self.numberForCounter
+                        self.timerLabel.text = "Поля очищены"
+                        timerNew.invalidate()
+                    }
+                }
+        timer.tolerance = 0.3
+        return timer
+    }
+    
+    private func startTimer(timer: Timer) -> Void {
+        RunLoop.main.add(timer, forMode: .common)
+    }
+    
+    private func stopTimer(timer: Timer) {
+        self.count = self.numberForCounter
+        timer.invalidate()
     }
     
     private func setupViews(){
@@ -71,6 +139,8 @@ class LogInViewController: UIViewController {
                                 emailOrPhoneTextField,
                                 passwordTextField,
                                 logInButton,
+                                timerLabel,
+                                warningLabel,
                                 longLine
         )
         
@@ -88,6 +158,12 @@ class LogInViewController: UIViewController {
             
             logoImageView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 120),
             logoImageView.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
+            
+            warningLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+            warningLabel.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
+
+            timerLabel.topAnchor.constraint(equalTo: warningLabel.bottomAnchor, constant: 10),
+            timerLabel.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
 
             bigFieldForTwoTextFieldsImageView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
             bigFieldForTwoTextFieldsImageView.heightAnchor.constraint(equalTo: logoImageView.heightAnchor, constant: 0),
@@ -114,6 +190,9 @@ class LogInViewController: UIViewController {
     // MARK: - Keyboard observers
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.timerLabel.text = ""
+        self.currentTimer = setupTimer()
+        startTimer(timer: self.currentTimer)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -121,6 +200,7 @@ class LogInViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        stopTimer(timer: self.currentTimer)
         
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
