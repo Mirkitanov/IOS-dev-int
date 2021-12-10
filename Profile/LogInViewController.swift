@@ -142,8 +142,39 @@ class LogInViewController: UIViewController {
     
     @objc private func logInButtonPressed() {
         
-        let postsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PostsViewController")
-        navigationController?.pushViewController(postsViewController, animated: true)
+        #if DEBUG
+        
+        let currentUserService = TestUserService()
+        let profileVC = ProfileViewController(userService: currentUserService, fullName: emailOrPhoneTextField.text!)
+        profileVC.userService = currentUserService
+        if emailOrPhoneTextField.text == currentUserService.user.userFullName{
+            navigationController?.pushViewController(profileVC, animated: true)
+            navigationController?.setViewControllers([profileVC], animated: true)
+        } else {
+            let alert = UIAlertController(title: "Debug-сборка", message: "Пользователь не найден! Проверьте пожалуйтса правильность введенных данных.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("Алерт-сообщение получено. Нажата кнопка \"OK\"")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        #else
+        
+        let currentUserService = CurrentUserService()
+        let profileVC = ProfileViewController(userService: currentUserService, fullName: emailOrPhoneTextField.text!)
+        profileVC.userService = currentUserService
+        if emailOrPhoneTextField.text == currentUserService.user.userFullName{
+            navigationController?.pushViewController(profileVC, animated: true)
+            navigationController?.setViewControllers([profileVC], animated: true)
+        } else {
+            let alert = UIAlertController(title: "Release-сборка", message: "Пользователь не найден! Проверьте пожалуйтса правильность введенных данных.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                NSLog("Алерт-сообщение получено. Нажата кнопка \"OK\"")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        #endif
     }
     
 }

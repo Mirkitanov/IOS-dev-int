@@ -5,18 +5,18 @@ class ProfileHeaderView: UIView {
     
     // MARK: Properties
     
-    @IBOutlet private var avatarImageView: UIImageView! {
+    @IBOutlet var avatarImageView: UIImageView! {
         didSet {
             setupImageView()
         }
     }
     
-    @IBOutlet private var fullNameLabel: UILabel!{
+    @IBOutlet var fullNameLabel: UILabel!{
         didSet {
             setupFullNameLabel()
         }
     }
-    @IBOutlet private var statusTextField: UITextField!{
+    @IBOutlet var statusTextField: UITextField!{
         didSet {
             setupStatusTextField()
         }
@@ -49,6 +49,7 @@ class ProfileHeaderView: UIView {
     
     // MARK: Setups
     
+    
     private func setupSetStatusButton() {
         setStatusButton.layer.cornerRadius = 4
         setStatusButton.layer.shadowColor = UIColor.black.cgColor
@@ -72,9 +73,7 @@ class ProfileHeaderView: UIView {
         statusTextField.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupImageView() {
-        
-        avatarImageView.image = #imageLiteral(resourceName: "foto2")
+    public func setupImageView() {
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.cornerRadius = 50
@@ -86,14 +85,12 @@ class ProfileHeaderView: UIView {
     
     private func setupViews() {
         
-         backgroundColor = .systemGray4
-         
-        //avatarImageView.frame = CGRect(x: 16, y: 16, width: 100, height: 100)
+        backgroundColor = .systemGray4
         
-         addSubview(avatarImageView)
-         addSubview(fullNameLabel)
-         addSubview(statusTextField)
-         addSubview(setStatusButton)
+        addSubview(avatarImageView)
+        addSubview(fullNameLabel)
+        addSubview(statusTextField)
+        addSubview(setStatusButton)
         
         let constraints = [
             
