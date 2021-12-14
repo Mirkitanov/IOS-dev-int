@@ -10,20 +10,33 @@ class LogInViewController: UIViewController {
     @IBOutlet var bigFieldForTwoTextFieldsImageView: UIImageView!
     
     @IBOutlet var emailOrPhoneTextField: UITextField!
-        
+    
     @IBOutlet var passwordTextField: UITextField!
     
     @IBOutlet var logInButton: UIButton!
     
     private let wrapperView = UIView()
     
+    var authorizationDelegate: LoginViewControllerDelegate?
+    
+    var warning: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        label.textColor = .systemRed
+        label.numberOfLines = 1
+        label.textAlignment = .left
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        warning.text = ""
         setupViews()
     }
     
     private func setupViews(){
+        
         navigationController?.navigationBar.isHidden = true
         let longLine: UIView = {
             let line = UIView()
@@ -71,7 +84,8 @@ class LogInViewController: UIViewController {
                                 emailOrPhoneTextField,
                                 passwordTextField,
                                 logInButton,
-                                longLine
+                                longLine,
+                                warning
         )
         
         let constraints = [
@@ -88,7 +102,7 @@ class LogInViewController: UIViewController {
             
             logoImageView.topAnchor.constraint(equalTo: wrapperView.topAnchor, constant: 120),
             logoImageView.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor),
-
+            
             bigFieldForTwoTextFieldsImageView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 120),
             bigFieldForTwoTextFieldsImageView.heightAnchor.constraint(equalTo: logoImageView.heightAnchor, constant: 0),
             bigFieldForTwoTextFieldsImageView.leadingAnchor.constraint(equalTo: wrapperView.leadingAnchor, constant: 16),
@@ -105,8 +119,11 @@ class LogInViewController: UIViewController {
             longLine.topAnchor.constraint(equalTo: bigFieldForTwoTextFieldsImageView.topAnchor, constant: 49.75),
             longLine.leadingAnchor.constraint(equalTo: bigFieldForTwoTextFieldsImageView.leadingAnchor),
             longLine.trailingAnchor.constraint(equalTo: bigFieldForTwoTextFieldsImageView.trailingAnchor),
-            longLine.bottomAnchor.constraint(equalTo: bigFieldForTwoTextFieldsImageView.bottomAnchor, constant: -49.75)
-            ]
+            longLine.bottomAnchor.constraint(equalTo: bigFieldForTwoTextFieldsImageView.bottomAnchor, constant: -49.75),
+            
+            warning.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+            warning.centerXAnchor.constraint(equalTo: wrapperView.centerXAnchor)
+        ]
         
         NSLayoutConstraint.activate(constraints)
     }
@@ -134,32 +151,64 @@ class LogInViewController: UIViewController {
             logInScrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
         }
     }
-
+    
     @objc fileprivate func keyboardWillHide(notification: NSNotification) {
         logInScrollView.contentInset.bottom = .zero
         logInScrollView.verticalScrollIndicatorInsets = .zero
     }
     
     @objc private func logInButtonPressed() {
+        self.warning.textColor = .systemRed
+        /// Check that delegate is not nil
+        guard let delegate = self.authorizationDelegate else {
+            warning.text = "Authorization delegate is nil"
+            return
+        }
+        /// Check that login is not empty
+        guard let login = emailOrPhoneTextField.text, login != "" else {
+            warning.text = "Please input login"
+            return
+        }
+        /// Check that password is not empty
+        guard let password = passwordTextField.text, password != "" else {
+            warning.text = "Please input password"
+            return
+        }
+        /// Check login and password
+        if !delegate.checkLogin(login) || !delegate.checkPassword(password) {
+            warning.text = "Login or password wrong"
+            return
+        }
         
+        self.warning.textColor = .systemGreen
+        self.warning.text = "Login & password are correct"
+        
+        //Make textfield inactive
+        self.emailOrPhoneTextField.textColor = .gray
+        self.emailOrPhoneTextField.isUserInteractionEnabled = false
+        self.passwordTextField.textColor = .gray
+        self.passwordTextField.isSecureTextEntry = false
+        self.passwordTextField.isUserInteractionEnabled = false
+        
+        // Go to PostsViewController
         let postsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PostsViewController")
         navigationController?.pushViewController(postsViewController, animated: true)
     }
     
 }
 
-    extension UIImage {
-        func alpha(_ value:CGFloat) -> UIImage {
-            UIGraphicsBeginImageContextWithOptions(size, false, scale)
-            draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return newImage!
-        }
+extension UIImage {
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
+}
 
-    extension UIView {
-        func addSubviews(_ subviews: UIView...) {
-            subviews.forEach { addSubview($0) }
-        }
+extension UIView {
+    func addSubviews(_ subviews: UIView...) {
+        subviews.forEach { addSubview($0) }
     }
+}
