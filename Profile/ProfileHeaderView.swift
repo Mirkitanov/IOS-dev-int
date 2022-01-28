@@ -27,6 +27,8 @@ class ProfileHeaderView: UIView {
         }
     }
     
+    let avatarImageToLoad: UIImage? = #imageLiteral(resourceName: "foto2")
+    
     // MARK: Life cycle
     
     override init (frame: CGRect) {
@@ -39,6 +41,14 @@ class ProfileHeaderView: UIView {
     
     override func awakeFromNib() {
         setupViews()
+        loadingImageToAvatar {result in switch result{
+        case .success(let imageToLoad):
+            avatarImageView.image = imageToLoad
+            print ("Картинка успешно загружена")
+        case .failure(let error):
+            print (error.localizedDescription)
+        }
+        }
     }
     
     // MARK: Actions
@@ -73,8 +83,7 @@ class ProfileHeaderView: UIView {
     }
     
     private func setupImageView() {
-        
-        avatarImageView.image = #imageLiteral(resourceName: "foto2")
+
         avatarImageView.contentMode = .scaleAspectFill
         avatarImageView.clipsToBounds = true
         avatarImageView.layer.cornerRadius = 50
@@ -83,11 +92,9 @@ class ProfileHeaderView: UIView {
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    
     private func setupViews() {
         
          backgroundColor = .systemGray4
-         
          addSubview(avatarImageView)
          addSubview(fullNameLabel)
          addSubview(statusTextField)
@@ -112,6 +119,14 @@ class ProfileHeaderView: UIView {
         ]
         
         NSLayoutConstraint.activate(constraints)
+    }
+    
+    func loadingImageToAvatar (completionHandler: ((Result<UIImage, ApiError>) -> Void)){
+        if let newImage = avatarImageToLoad {
+            completionHandler(.success(newImage))
+        } else {
+            completionHandler(.failure(ApiError.notFoundRecourceImage))
+        }
     }
 }
 

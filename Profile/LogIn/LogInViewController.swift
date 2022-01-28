@@ -19,6 +19,8 @@ class LogInViewController: UIViewController {
     
     var authorizationDelegate: LoginViewControllerDelegate?
     
+    var customError: AuthenticationError? = nil
+    
     var warning: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -157,26 +159,59 @@ class LogInViewController: UIViewController {
         logInScrollView.verticalScrollIndicatorInsets = .zero
     }
     
+    private func alertError (error: AuthenticationError?){
+        let alert = UIAlertController(title: "Ошибка!", message: error?.localizedDescription, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+            NSLog("Алерт-сообщение получено: \(error?.localizedDescription ?? "Error"). Нажата кнопка \"OK\"")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc private func logInButtonPressed() {
         self.warning.textColor = .systemRed
+        var login = ""
         /// Check that delegate is not nil
         guard let delegate = self.authorizationDelegate else {
             warning.text = "Authorization delegate is nil"
+            self.customError = AuthenticationError.configError
+            alertError(error: self.customError)
             return
         }
         /// Check that login is not empty
-        guard let login = emailOrPhoneTextField.text, login != "" else {
+//        guard let login = emailOrPhoneTextField.text, login != "" else {
+//            warning.text = "Please input login"
+//            self.customError = AuthenticationError.emptyLogin
+//            alertError(error: self.customError)
+//            return
+//        }
+        
+        do {
+            let loginText = try giveLoginTextIfNotEmpty()
+            login = loginText
+        } catch AuthenticationError.emptyLogin {
             warning.text = "Please input login"
+            self.customError = AuthenticationError.emptyLogin
+            alertError(error: self.customError)
+            return
+        } catch {
+            warning.text = "Sorry, some problems"
+            self.customError = AuthenticationError.configError
+            alertError(error: self.customError)
             return
         }
+        
         /// Check that password is not empty
         guard let password = passwordTextField.text, password != "" else {
             warning.text = "Please input password"
+            self.customError = AuthenticationError.emptyPassword
+            alertError(error: self.customError)
             return
         }
         /// Check login and password
         if !delegate.checkLogin(login) || !delegate.checkPassword(password) {
             warning.text = "Login or password wrong"
+            self.customError = AuthenticationError.invalidLoginOrPassword
+            alertError(error: self.customError)
             return
         }
         
@@ -193,6 +228,15 @@ class LogInViewController: UIViewController {
         // Go to PostsViewController
         let postsViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "PostsViewController")
         navigationController?.pushViewController(postsViewController, animated: true)
+    }
+    
+    func giveLoginTextIfNotEmpty() throws -> String {
+        
+        if let login = emailOrPhoneTextField.text, login != "" {
+            return login
+        } else {
+            throw AuthenticationError.emptyLogin
+        }
     }
     
 }
