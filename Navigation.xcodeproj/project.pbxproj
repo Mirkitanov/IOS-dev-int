@@ -23,6 +23,22 @@
 		84679A5925DAD46C00D09967 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84679A5725DAD46C00D09967 /* ProfileHeaderView.swift */; };
 		84679A6C25DAE24000D09967 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84679A6325DAE0C100D09967 /* PostTableViewCell.swift */; };
 		84679A6E25DAE24200D09967 /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84679A6425DAE0C100D09967 /* PostsViewController.swift */; };
+		84827CC12788B7D60028AFC0 /* AudioPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CC02788B7D60028AFC0 /* AudioPlayerViewController.swift */; };
+		84827CC52788C1F90028AFC0 /* Dima Bilan - Molniya.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CC42788C1EF0028AFC0 /* Dima Bilan - Molniya.mp3 */; };
+		84827CCB2788C2FA0028AFC0 /* Habib - Yagoda-malinka.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CCA2788C2D40028AFC0 /* Habib - Yagoda-malinka.mp3 */; };
+		84827CCD2788C31C0028AFC0 /* Artur Pirozhkov - Zacepila.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CC72788C23B0028AFC0 /* Artur Pirozhkov - Zacepila.mp3 */; };
+		84827CCF2788C31F0028AFC0 /* Survivor - Eye of the Tiger.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CC82788C2900028AFC0 /* Survivor - Eye of the Tiger.mp3 */; };
+		84827CD12788C3210028AFC0 /* Queen - Show Must Go On.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CC92788C2990028AFC0 /* Queen - Show Must Go On.mp3 */; };
+		84827CD52788CE810028AFC0 /* AVControlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CD42788CE810028AFC0 /* AVControlButton.swift */; };
+		84827CDB278B7A690028AFC0 /* ohah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CDA278B7A530028AFC0 /* ohah.mp3 */; };
+		84827CDD278B7C4D0028AFC0 /* aheeah.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CD9278B7A470028AFC0 /* aheeah.mp3 */; };
+		84827CDF278B7C4F0028AFC0 /* harmonyvocal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 84827CD8278B7A390028AFC0 /* harmonyvocal.mp3 */; };
+		84827CE2278D86E70028AFC0 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CE1278D86E60028AFC0 /* VideoPlayerViewController.swift */; };
+		84827CE7278D96960028AFC0 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CE6278D96960028AFC0 /* VideoModel.swift */; };
+		84827CEA278D98040028AFC0 /* VideoPlayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CE9278D98040028AFC0 /* VideoPlayerTableViewCell.swift */; };
+		84827CED278D9F0F0028AFC0 /* VideoPlaylistStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CEC278D9F0F0028AFC0 /* VideoPlaylistStorage.swift */; };
+		84827CF1278E34FD0028AFC0 /* AudioPlayerTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CF0278E34FC0028AFC0 /* AudioPlayerTrigger.swift */; };
+		84827CF5278F67610028AFC0 /* AudioRecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84827CF4278F67600028AFC0 /* AudioRecorderViewController.swift */; };
 		84A64F8825EEBDE100725000 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A64F8625EEB79B00725000 /* Storage.swift */; };
 		84A64F8A25EEBDE600725000 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A64F8225EEB6E400725000 /* PhotosViewController.swift */; };
 		84A64F8C25EEBDE900725000 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A64F8325EEB6E400725000 /* PhotosCollectionViewCell.swift */; };
@@ -48,6 +64,22 @@
 		84679A5725DAD46C00D09967 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		84679A6325DAE0C100D09967 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		84679A6425DAE0C100D09967 /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
+		84827CC02788B7D60028AFC0 /* AudioPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerViewController.swift; sourceTree = "<group>"; };
+		84827CC42788C1EF0028AFC0 /* Dima Bilan - Molniya.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Dima Bilan - Molniya.mp3"; sourceTree = "<group>"; };
+		84827CC72788C23B0028AFC0 /* Artur Pirozhkov - Zacepila.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Artur Pirozhkov - Zacepila.mp3"; sourceTree = "<group>"; };
+		84827CC82788C2900028AFC0 /* Survivor - Eye of the Tiger.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Survivor - Eye of the Tiger.mp3"; sourceTree = "<group>"; };
+		84827CC92788C2990028AFC0 /* Queen - Show Must Go On.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Queen - Show Must Go On.mp3"; sourceTree = "<group>"; };
+		84827CCA2788C2D40028AFC0 /* Habib - Yagoda-malinka.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Habib - Yagoda-malinka.mp3"; sourceTree = "<group>"; };
+		84827CD42788CE810028AFC0 /* AVControlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVControlButton.swift; sourceTree = "<group>"; };
+		84827CD8278B7A390028AFC0 /* harmonyvocal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = harmonyvocal.mp3; sourceTree = "<group>"; };
+		84827CD9278B7A470028AFC0 /* aheeah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = aheeah.mp3; sourceTree = "<group>"; };
+		84827CDA278B7A530028AFC0 /* ohah.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ohah.mp3; sourceTree = "<group>"; };
+		84827CE1278D86E60028AFC0 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		84827CE6278D96960028AFC0 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		84827CE9278D98040028AFC0 /* VideoPlayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerTableViewCell.swift; sourceTree = "<group>"; };
+		84827CEC278D9F0F0028AFC0 /* VideoPlaylistStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlaylistStorage.swift; sourceTree = "<group>"; };
+		84827CF0278E34FC0028AFC0 /* AudioPlayerTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerTrigger.swift; sourceTree = "<group>"; };
+		84827CF4278F67600028AFC0 /* AudioRecorderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorderViewController.swift; sourceTree = "<group>"; };
 		84A64F8225EEB6E400725000 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		84A64F8325EEB6E400725000 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		84A64F8425EEB6E400725000 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
@@ -114,6 +146,10 @@
 		84679A3C25CDC03000D09967 /* New Group */ = {
 			isa = PBXGroup;
 			children = (
+				84827CBE2788B0AB0028AFC0 /* VideoPlayer */,
+				84827CBC2788AFD30028AFC0 /* AudioPlayer */,
+				84827CF3278F66E00028AFC0 /* AudioRecorder */,
+				84827CBB2788AFA50028AFC0 /* Music */,
 				84A64F8125EEB6E400725000 /* CollectionView */,
 				84679A6125DAE0C100D09967 /* PostsViewController */,
 				84679A5F25DAE0C100D09967 /* Storage */,
@@ -136,6 +172,50 @@
 				84679A6425DAE0C100D09967 /* PostsViewController.swift */,
 			);
 			path = PostsViewController;
+			sourceTree = "<group>";
+		};
+		84827CBB2788AFA50028AFC0 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				84827CC42788C1EF0028AFC0 /* Dima Bilan - Molniya.mp3 */,
+				84827CC72788C23B0028AFC0 /* Artur Pirozhkov - Zacepila.mp3 */,
+				84827CC82788C2900028AFC0 /* Survivor - Eye of the Tiger.mp3 */,
+				84827CC92788C2990028AFC0 /* Queen - Show Must Go On.mp3 */,
+				84827CCA2788C2D40028AFC0 /* Habib - Yagoda-malinka.mp3 */,
+				84827CDA278B7A530028AFC0 /* ohah.mp3 */,
+				84827CD9278B7A470028AFC0 /* aheeah.mp3 */,
+				84827CD8278B7A390028AFC0 /* harmonyvocal.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		84827CBC2788AFD30028AFC0 /* AudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				84827CC02788B7D60028AFC0 /* AudioPlayerViewController.swift */,
+				84827CD42788CE810028AFC0 /* AVControlButton.swift */,
+				84827CF0278E34FC0028AFC0 /* AudioPlayerTrigger.swift */,
+			);
+			path = AudioPlayer;
+			sourceTree = "<group>";
+		};
+		84827CBE2788B0AB0028AFC0 /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				84827CE1278D86E60028AFC0 /* VideoPlayerViewController.swift */,
+				84827CE6278D96960028AFC0 /* VideoModel.swift */,
+				84827CE9278D98040028AFC0 /* VideoPlayerTableViewCell.swift */,
+				84827CEC278D9F0F0028AFC0 /* VideoPlaylistStorage.swift */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
+		84827CF3278F66E00028AFC0 /* AudioRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				84827CF4278F67600028AFC0 /* AudioRecorderViewController.swift */,
+			);
+			path = AudioRecorder;
 			sourceTree = "<group>";
 		};
 		84A64F8125EEB6E400725000 /* CollectionView */ = {
@@ -207,10 +287,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84827CC52788C1F90028AFC0 /* Dima Bilan - Molniya.mp3 in Resources */,
 				060782BE250CE27A00A87020 /* LaunchScreen.storyboard in Resources */,
+				84827CCF2788C31F0028AFC0 /* Survivor - Eye of the Tiger.mp3 in Resources */,
+				84827CD12788C3210028AFC0 /* Queen - Show Must Go On.mp3 in Resources */,
 				060782BB250CE27A00A87020 /* Assets.xcassets in Resources */,
 				060782B9250CE27700A87020 /* Main.storyboard in Resources */,
+				84827CDD278B7C4D0028AFC0 /* aheeah.mp3 in Resources */,
+				84827CDB278B7A690028AFC0 /* ohah.mp3 in Resources */,
+				84827CCB2788C2FA0028AFC0 /* Habib - Yagoda-malinka.mp3 in Resources */,
+				84827CDF278B7C4F0028AFC0 /* harmonyvocal.mp3 in Resources */,
 				8442746325F8D2B100403DB0 /* ProfileHeaderView.xib in Resources */,
+				84827CCD2788C31C0028AFC0 /* Artur Pirozhkov - Zacepila.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,14 +310,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				84A64F8E25EEBDEC00725000 /* PhotosTableViewCell.swift in Sources */,
+				84827CF5278F67610028AFC0 /* AudioRecorderViewController.swift in Sources */,
+				84827CF1278E34FD0028AFC0 /* AudioPlayerTrigger.swift in Sources */,
 				84679A6E25DAE24200D09967 /* PostsViewController.swift in Sources */,
+				84827CE2278D86E70028AFC0 /* VideoPlayerViewController.swift in Sources */,
+				84827CE7278D96960028AFC0 /* VideoModel.swift in Sources */,
 				84051DB9261CD3E100FAD532 /* PhotosToOneCell.swift in Sources */,
 				84A64F8C25EEBDE900725000 /* PhotosCollectionViewCell.swift in Sources */,
 				84A64F8A25EEBDE600725000 /* PhotosViewController.swift in Sources */,
 				060782B6250CE27700A87020 /* FeedViewController.swift in Sources */,
+				84827CC12788B7D60028AFC0 /* AudioPlayerViewController.swift in Sources */,
+				84827CEA278D98040028AFC0 /* VideoPlayerTableViewCell.swift in Sources */,
 				84679A5925DAD46C00D09967 /* ProfileHeaderView.swift in Sources */,
 				84679A5825DAD46C00D09967 /* ProfileViewController.swift in Sources */,
+				84827CED278D9F0F0028AFC0 /* VideoPlaylistStorage.swift in Sources */,
 				060782B2250CE27700A87020 /* AppDelegate.swift in Sources */,
+				84827CD52788CE810028AFC0 /* AVControlButton.swift in Sources */,
 				84A64F8825EEBDE100725000 /* Storage.swift in Sources */,
 				84679A2325C9B27F00D09967 /* LogInViewController.swift in Sources */,
 				060782C6250CEB0A00A87020 /* InfoViewController.swift in Sources */,
