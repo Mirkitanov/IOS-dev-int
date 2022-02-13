@@ -104,7 +104,9 @@ extension PostsViewController: UITableViewDelegate {
     
                 switch indexPath.section {
                 case 0:
-                    let photosViewController = PhotosViewController()
+//                    let photosViewController = PhotosViewController()
+                    let photosViewController = PhotosPublisherFacadeViewController()
+                    
                     
                     navigationController?.pushViewController(photosViewController, animated: true)
                 default:
