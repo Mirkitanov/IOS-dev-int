@@ -12,11 +12,11 @@ import iOSIntPackage
 class PhotosPublisherFacadeViewController: UIViewController {
     //MARK:- Properties
     
-    var imagePublisherFacade = ImagePublisherFacade()
-    
     private var dataSource: [UIImage] = [] {
         didSet { photosCollectionView.reloadData() }
     }
+    
+    var imageContainerArray: [UIImage] = []
     
     private lazy var photosCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -35,13 +35,40 @@ class PhotosPublisherFacadeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 1, repeat: 15, userImages: makeAppendingArray(photosFromCustomArray: PhotoStorage.photoModel[0].photos))
+        imageContainerArray = makeImageArray(from: PhotoStorage.photoModel[0].photos, needCountElementsOrLess: 21)
+        getProcessImages(filter: .noir, qualityOfService: .default)
     }
-    
-    deinit {
-        imagePublisherFacade.rechargeImageLibrary()
-    }
+/*
+         Фильтр: noir,
+         Количество элементов массива: 21,
+         Приоритет(QualityOfService): NSQualityOfService.default,
+         Время выполнения метода: 3.638170003890991
+         
+         Фильтр: noir,
+         Количество элементов массива: 21,
+         Приоритет(QualityOfService): NSQualityOfService.background,
+         Время выполнения метода: 4.096581935882568
+         
+         Фильтр: noir,
+         Количество элементов массива: 12,
+         Приоритет(QualityOfService): NSQualityOfService.background,
+         Время выполнения метода: 2.986425042152405
+         
+         Фильтр: chrome,
+         Количество элементов массива: 12,
+         Приоритет(QualityOfService): NSQualityOfService.background,
+         Время выполнения метода: 3.177616000175476
+         
+         Фильтр: chrome,
+         Количество элементов массива: 21,
+         Приоритет(QualityOfService): NSQualityOfService.default,
+         Время выполнения метода: 3.6189130544662476
+         
+         Фильтр: chrome,
+         Количество элементов массива: 21,
+         Приоритет(QualityOfService): NSQualityOfService.background,
+         Время выполнения метода: 4.146368980407715
+*/
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,12 +96,38 @@ class PhotosPublisherFacadeViewController: UIViewController {
         NSLayoutConstraint.activate(constraints)
     }
     
-    private func makeAppendingArray(photosFromCustomArray: [Photo]) -> [UIImage]{
+    private func makeImageArray(from photoArray: [Photo], needCountElementsOrLess: Int) -> [UIImage]{
         var newPhotoArray: [UIImage] = []
-        for (index, _) in photosFromCustomArray.enumerated() {
-            newPhotoArray.append(photosFromCustomArray[index].image)
+        for (index, _) in photoArray.enumerated() where index < needCountElementsOrLess {
+            newPhotoArray.append(photoArray[index].image)
         }
         return newPhotoArray
+    }
+    
+    func getProcessImages(filter: ColorFilter, qualityOfService: QualityOfService) {
+        let imageProcessor = ImageProcessor()
+        let methodStart = NSDate()
+        imageProcessor.processImagesOnThread(sourceImages: imageContainerArray, filter: filter, qos: qualityOfService) {[weak self] processedImages in
+            guard let self = self else { return }
+        
+            DispatchQueue.main.async {
+                for i in processedImages {
+                    guard let image = i else { return }
+                    self.dataSource.append(UIImage(cgImage: image))
+                }
+                
+                let methodFinish = NSDate()
+                
+                let executionTime = methodFinish.timeIntervalSince(methodStart as Date)
+                
+                print("""
+Фильтр: \(filter),
+Количество элементов массива: \(self.dataSource.count),
+Приоритет(QualityOfService): \(qualityOfService),
+Время выполнения метода: \(executionTime)
+""")
+            }
+        }
     }
 }
 
@@ -94,7 +147,6 @@ extension PhotosPublisherFacadeViewController: UICollectionViewDelegateFlowLayou
         )
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
@@ -102,7 +154,6 @@ extension PhotosPublisherFacadeViewController: UICollectionViewDelegateFlowLayou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 8
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: sideInset, left: sideInset, bottom: sideInset, right: sideInset)
@@ -113,9 +164,6 @@ extension PhotosPublisherFacadeViewController: UICollectionViewDelegateFlowLayou
             return
         }
         someCell.photoImage = dataSource[indexPath.item]
-//MARK:- Вопрос к проверяющему
-// Почему, если создать ячейку следующим образом,то все ячейки создаются черными?
-//        someCell.photoInScreen?.image = dataSource[indexPath.item]
     }
 }
 
@@ -128,11 +176,5 @@ extension PhotosPublisherFacadeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: PhotosPublisherFacadeCell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: PhotosPublisherFacadeCell.self), for: indexPath) as! PhotosPublisherFacadeCell
         return cell
-    }
-}
-
-extension PhotosPublisherFacadeViewController: ImageLibrarySubscriber {
-    func receive(images: [UIImage]) {
-        self.dataSource = images
     }
 }
