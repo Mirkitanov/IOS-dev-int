@@ -10,6 +10,8 @@ import UIKit
 
 final class FeedViewController: UIViewController {
     
+    weak var flowCoordinator: ProfileCoordinator?
+    
     let post: PostOld = PostOld(title: "Пост")
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

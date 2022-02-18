@@ -148,18 +148,18 @@ class LogInViewController: UIViewController {
     
 }
 
-    extension UIImage {
-        func alpha(_ value:CGFloat) -> UIImage {
-            UIGraphicsBeginImageContextWithOptions(size, false, scale)
-            draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return newImage!
-        }
-    }
+//    extension UIImage {
+//        func alpha(_ value:CGFloat) -> UIImage {
+//            UIGraphicsBeginImageContextWithOptions(size, false, scale)
+//            draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+//            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            return newImage!
+//        }
+//    }
 
-    extension UIView {
-        func addSubviews(_ subviews: UIView...) {
-            subviews.forEach { addSubview($0) }
-        }
-    }
+//    extension UIView {
+//        func addSubviews(_ subviews: UIView...) {
+//            subviews.forEach { addSubview($0) }
+//        }
+//    }
