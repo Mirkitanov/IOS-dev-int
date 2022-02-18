@@ -8,9 +8,9 @@
 
 import UIKit
 
-import UIKit
-
 final class PhotosViewController: UIViewController {
+    
+    weak var flowCoordinator: ProfileCoordinator?
     
     private lazy var collectionView: UICollectionView = {
         
